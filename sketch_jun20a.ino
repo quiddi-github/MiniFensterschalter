@@ -26,7 +26,9 @@ void setup()
     digitalWrite(6, HIGH);       
   //Ausgänge
     pinMode(11, OUTPUT);
+    digitalWrite(11, HIGH);//Achtung Relai ist LOW-Active, deshalb High
     pinMode(12, OUTPUT);
+    digitalWrite(12, HIGH);//Achtung Relai ist LOW-Active, deshalb High
     pinMode(13, OUTPUT);
   //Setze Variablen 0
     flankenmerker5 = false;
@@ -62,30 +64,30 @@ void loop() {
       ZustandEingang6 = true;
       flankenmerker5 = false;
       flankenmerker6 = false;
-      digitalWrite(11, LOW);
-      digitalWrite(12, LOW);
-      digitalWrite(13, LOW);
+      digitalWrite(11, HIGH);//Achtung Relai ist LOW-Active, deshalb High
+      digitalWrite(12, HIGH);//Achtung Relai ist LOW-Active, deshalb High
+      digitalWrite(13, LOW);//Kontroll-LED bleibt am Arduino aus, da Relai nicht angezogen
       TasterEntprellt = false;
       delay(300);
       flankenstartzeit = zeit;
     }   
   if(Ausgang11) //Shreibe Ausgang 11
     {
-      digitalWrite(11, HIGH);
+      digitalWrite(11, LOW);//Achtung Relai ist LOW-Active, deshalb Low
       digitalWrite(13, HIGH);
     }
     else
       {
-       digitalWrite(11, LOW);
+       digitalWrite(11, HIGH);//Achtung Relai ist LOW-Active, deshalb High
        digitalWrite(13, LOW); 
       }
   if(Ausgang12) //Schreibe Ausgang 12
     {
-      digitalWrite(12, HIGH);
+      digitalWrite(12, LOW);//Achtung Relai ist LOW-Active, deshalb Low
     }
     else
       {
-       digitalWrite(12, LOW); 
+       digitalWrite(12, HIGH);//Achtung Relai ist LOW-Active, deshalb High 
       }
 //Ausgänge schreiben,Ende
 
@@ -156,6 +158,7 @@ if(Steuere5Sekunden)
     if(flankenmerker5)
       {
         Ausgang11 = true;
+        Ausgang12 = false;
       }
       else
         {
@@ -164,6 +167,7 @@ if(Steuere5Sekunden)
     if(flankenmerker6)
       {
         Ausgang12 = true;
+        Ausgang11 = false;
       } 
       else
         {
@@ -175,6 +179,7 @@ if(Steuere5Sekunden)
     if(!ZustandEingang5)
       {
         Ausgang11 = true;
+        Ausgang12 = false;
       }
       else
         {
@@ -184,6 +189,7 @@ if(Steuere5Sekunden)
     if(!ZustandEingang6)
       {
         Ausgang12 = true;
+        Ausgang11 = false;
       } 
       else
         {
